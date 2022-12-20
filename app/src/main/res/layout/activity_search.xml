@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="multiSearch"
-            type="com.prtd.serial.presentation.search_screen.MultiSearchViewModel" />
+            type="com.prtd.serial.presentation.screen_search.MultiSearchViewModel" />
         <variable
             name="series"
             type="com.prtd.serial.domain.models.Series" />

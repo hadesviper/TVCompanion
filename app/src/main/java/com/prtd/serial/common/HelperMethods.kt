@@ -3,8 +3,6 @@ package com.prtd.serial.common
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
@@ -13,9 +11,9 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.prtd.serial.R
 import com.prtd.serial.common.Constants.Type_Series
-import com.prtd.serial.presentation.item_movie.MovieActivity
-import com.prtd.serial.presentation.item_series.SeriesActivity
-import com.prtd.serial.presentation.search_screen.SearchActivity
+import com.prtd.serial.presentation.screen_item_movie.MovieActivity
+import com.prtd.serial.presentation.screen_item_series.SeriesActivity
+import com.prtd.serial.presentation.screen_search.SearchActivity
 import kotlin.math.pow
 
 object HelperMethods {

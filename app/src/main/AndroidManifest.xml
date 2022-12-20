@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         tools:targetApi="31" >
         <activity
-            android:name=".presentation.search_screen.SearchActivity"
+            android:name=".presentation.screen_search.SearchActivity"
             android:exported="false"
             android:theme="@style/Theme.TVCompanion">
             <meta-data
@@ -24,9 +24,9 @@
         </activity>
         <activity
             android:label=""
-            android:name=".presentation.item_series.SeriesActivity"
+            android:name=".presentation.screen_item_series.SeriesActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.search_screen.SearchActivity"
+            android:parentActivityName=".presentation.screen_search.SearchActivity"
             android:theme="@style/Theme.TVCompanionSpecific">
             <meta-data
                 android:name="android.app.lib_name"
@@ -34,16 +34,16 @@
         </activity>
         <activity
             android:label=""
-            android:name=".presentation.item_movie.MovieActivity"
+            android:name=".presentation.screen_item_movie.MovieActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.search_screen.SearchActivity"
+            android:parentActivityName=".presentation.screen_search.SearchActivity"
             android:theme="@style/Theme.TVCompanionSpecific">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".presentation.main_screen.MainActivity"
+            android:name=".presentation.screen_main.MainActivity"
             android:theme="@style/Theme.TVCompanion"
             android:exported="true" >
             <intent-filter>

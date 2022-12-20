@@ -3,22 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="RtlSymmetry">
-    <data>
-        <import type="com.prtd.serial.common.HelperMethods"
-            />
-        <variable
-            name="arrayAdapter"
-            type="android.widget.ArrayAdapter" />
-        <variable
-            name="multiSearchViewModel"
-            type="com.prtd.serial.presentation.search_screen.MultiSearchViewModel" />
-    </data>
     <LinearLayout
         android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".presentation.main_screen.MainActivity">
+        tools:context=".presentation.screen_main.MainActivity">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,13 +135,25 @@
                     android:layout_height="wrap_content"
                     android:minHeight="210dp"
                     app:spanCount="1"
-                    tools:listitem="@layout/recycler_main"/>
+                    tools:listitem="@layout/recycler_main" />
 
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
+    <data>
+
+        <import type="com.prtd.serial.common.HelperMethods" />
+
+        <variable
+            name="arrayAdapter"
+            type="android.widget.ArrayAdapter" />
+
+        <variable
+            name="multiSearchViewModel"
+            type="com.prtd.serial.presentation.screen_search.MultiSearchViewModel" />
+    </data>
 
 
 </layout>

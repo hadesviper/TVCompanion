@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.prtd.serial.R
 import com.prtd.serial.common.Constants.Type_Series
 import com.prtd.serial.presentation.screen_item_movie.MovieActivity
@@ -49,12 +50,27 @@ object HelperMethods {
     }
 
     fun startSearchActivity(context: Context,result: AutoCompleteTextView) {
-        Intent(
-            context,
-            SearchActivity::class.java).run {
-            this.putExtra(Constants.Media_Name, result.text.toString())
-            Log.i("TAG", "startSearchActivity: ${result.text}")
-            context.startActivity(this)
+        if (result.text.toString().isNotBlank()) {
+            Intent(
+                context,
+                SearchActivity::class.java
+            ).run {
+                this.putExtra(Constants.Media_Name, result.text.toString())
+                Log.i("TAG", "startSearchActivity: ${result.text}")
+                context.startActivity(this)
+            }
         }
+
+    }
+
+    fun showErrorDialog(context: Context, message: String, retryFun: () -> Unit) {
+        MaterialAlertDialogBuilder(context)
+            .setMessage("Error message: $message")
+            .setTitle("An error has occurred")
+            .setPositiveButton("Retry!") { _, _ ->
+                retryFun.invoke()
+            }
+            .setNegativeButton("Dismiss!", null)
+            .show()
     }
 }

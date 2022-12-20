@@ -39,7 +39,6 @@ class SearchActivity : AppCompatActivity() {
                     multiSearchViewModel.searchAll(query.toString(),1)
                     return true
                 }
-
                 override fun onQueryTextChange(newText: String?): Boolean {
                     return true
                 }

@@ -23,7 +23,7 @@ class MultiSearchUseCase @Inject constructor(
             emit(Resources.Success(data.getMultiResult()))
         }
         catch (e: HttpException){
-            emit( Resources.Error(message ="Couldn't Reach server check your internet connection !" ))
+            emit(Resources.Error(message = "Couldn't Reach server check your internet connection !"))
         }
         catch (e: IOException){
             emit( Resources.Error(message = e.localizedMessage ?: "An unexpected error has occurred"))

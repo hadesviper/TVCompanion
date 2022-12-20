@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import com.prtd.serial.R
+import com.prtd.serial.common.HelperMethods.showErrorDialog
 import com.prtd.serial.databinding.ActivityMainBinding
 import com.prtd.serial.presentation.screen_main.adapters.PopularMoviesAdapter
 import com.prtd.serial.presentation.screen_main.adapters.PopularSeriesAdapter
@@ -37,80 +38,88 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         multiSearchViewModel.registerAutoComplete(binding.autoComplete)
         binding.multiSearchViewModel = multiSearchViewModel
 
-        binding.arrayAdapter = ArrayAdapter<String> (this@MainActivity, com.google.android.material.R.layout.support_simple_spinner_dropdown_item)
+        binding.arrayAdapter = ArrayAdapter<String>(
+            this@MainActivity,
+            com.google.android.material.R.layout.support_simple_spinner_dropdown_item
+        )
 
 
-        binding.recyclerPopularMovies.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
-        binding.recyclerPopularSeries.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
-        binding.recyclerTopRatedMovies.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
-        binding.recyclerTopRatedSeries.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
+        binding.recyclerPopularMovies.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
+        binding.recyclerPopularSeries.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
+        binding.recyclerTopRatedMovies.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
+        binding.recyclerTopRatedSeries.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
 
 
 
 
-        popularMoviesViewModel.getPopularMovies().apply {
-            popularMoviesViewModel.getIsLoading().observeForever {
-                if (!it){
-                    binding.barPopularMovies.visibility = View.GONE
-                }
+        popularMoviesViewModel.apply {
+            getPopularMovies()
+
+            getIsLoading().observeForever {
+                binding.barPopularMovies.visibility = if (it) View.VISIBLE else View.GONE
             }
-            popularMoviesViewModel.getResult().observeForever{
+            getResult().observeForever {
                 binding.recyclerPopularMovies.adapter = PopularMoviesAdapter(it)
                 Log.i("TAG", "onCreate Result: $it")
             }
-            popularMoviesViewModel.getError().observeForever{
+            getError().observeForever {
                 Log.i("TAG", "onCreate Error: $it")
+                showErrorDialog(this@MainActivity, it) {
+                }
             }
         }
 
-        popularSeriesViewModel.getPopularSeries(1).apply {
-            popularSeriesViewModel.getIsLoading().observeForever {
-                if (!it){
-                    binding.barPopularSeries.visibility = View.GONE
-                }
+        popularSeriesViewModel.apply {
+            getPopularSeries(1)
+
+            getIsLoading().observeForever {
+                binding.barPopularSeries.visibility = if (it) View.VISIBLE else View.GONE
             }
-            popularSeriesViewModel.getResult().observeForever{
+            getResult().observeForever {
                 binding.recyclerPopularSeries.adapter = PopularSeriesAdapter(it)
                 Log.i("TAG", "onCreate Result: $it")
             }
-            popularSeriesViewModel.getError().observeForever{
+            getError().observeForever {
                 Log.i("TAG", "onCreate Error: $it")
+                showErrorDialog(this@MainActivity, it) {
+                }
             }
         }
 
-        topRatedSeriesViewModel.getTopRatedSeries().apply {
-            topRatedSeriesViewModel.getIsLoading().observeForever {
-                if (!it){
-                    binding.barTopRatedSeries.visibility = View.GONE
-                }
+        topRatedSeriesViewModel.apply {
+            getTopRatedSeries()
+            getIsLoading().observeForever {
+                binding.barTopRatedSeries.visibility = if (it) View.VISIBLE else View.GONE
             }
-            topRatedSeriesViewModel.getResult().observeForever{
+            getResult().observeForever {
                 binding.recyclerTopRatedSeries.adapter = TopRatedSeriesAdapter(it)
                 Log.i("TAG", "onCreate Result: $it")
             }
-            topRatedSeriesViewModel.getError().observeForever{
+            getError().observeForever {
                 Log.i("TAG", "onCreate Error: $it")
+                showErrorDialog(this@MainActivity, it) {
+                }
             }
         }
 
-        topRatedMoviesViewModel.getTopRatedMovies().apply {
-            topRatedMoviesViewModel.getIsLoading().observeForever {
-                if (!it){
-                    binding.barTopRatedMovies.visibility = View.GONE
-                }
-            }
-            topRatedMoviesViewModel.getResult().observeForever{
-                binding.recyclerTopRatedMovies.adapter = TopRatedMoviesAdapter(it)
+        topRatedMoviesViewModel.apply {
+            getTopRatedMovies()
 
+            getIsLoading().observeForever {
+                binding.barTopRatedMovies.visibility = if (it) View.VISIBLE else View.GONE
+            }
+            getResult().observeForever {
+                binding.recyclerTopRatedMovies.adapter = TopRatedMoviesAdapter(it)
                 Log.i("TAG", "onCreate Result: $it")
             }
-            topRatedMoviesViewModel.getError().observeForever{
-                Log.i("TAG", "onCreate Error: $it")
+            getError().observeForever {
+                showErrorDialog(this@MainActivity, it) {
+                }
             }
         }
 

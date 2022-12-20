@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="movie"
+            type="com.prtd.serial.domain.models.Movie" />
+        <variable
+            name="openYT"
+            type="com.prtd.serial.common.HelperMethods" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".presentation.item_movie.MovieActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:background="@color/items_background"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/imgBG"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:src="@drawable/sample_back"
+                    android:scaleType="fitXY" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtNameMovie"
+                tools:text="MovieName"
+                android:text="@{movie.title}"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTagLineMovie"
+                tools:text="TagLine"
+                android:textStyle="bold"
+                android:text="@{movie.tagline}"
+                android:layout_margin="5dp"
+                android:textSize="16sp"
+                android:textColor="@color/grey_white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtGenre"
+                tools:text="Genre"
+                android:text="@{movie.genre.toString()}"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="14sp"
+                android:textColor="@color/grey_white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtDateMovie"
+                    tools:text="Date"
+                    android:text="@{movie.year}"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey_white"
+                    app:drawableTint="@color/grey_white"
+                    app:drawableLeftCompat="@drawable/ic_baseline_calendar_month_24"
+                    android:drawablePadding="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtRateMovie"
+                    tools:text="Rate"
+                    android:text="@{movie.vote + ``}"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey_white"
+                    android:layout_marginHorizontal="20dp"
+                    app:drawableTint="@color/grey_white"
+                    app:drawableLeftCompat="@drawable/ic_baseline_star_24"
+                    android:drawablePadding="5dp" />
+
+                />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtDurationMovie"
+                    tools:text="Duration"
+                    android:text="@{movie.duration+ `min`}"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey_white"
+                    android:drawablePadding="5dp"
+                    app:drawableTint="@color/grey_white"
+                    app:drawableLeftCompat="@drawable/ic_baseline_access_time_24" />
+
+                <Space
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trailer"
+                    android:onClick="@{()->openYT.openYoutubeLink(context,movie.videoID)}"
+                    android:textColor="@color/white"
+                    app:drawableTint="@color/grey_white"
+                    app:drawableLeftCompat="@drawable/ic_baseline_ondemand_video_24"
+                    android:drawablePadding="5dp"
+                    android:backgroundTint="@color/items_background" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtOverviewMovie"
+                tools:text="overview"
+                android:text="@{movie.overview}"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="16sp"
+                android:textColor="@color/grey_white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Similar Movies"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+
+                />
+            <ProgressBar
+                android:id="@+id/barSimilar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/red" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerSimilar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:spanCount="1"
+                tools:listitem="@layout/recycler_main"/>
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

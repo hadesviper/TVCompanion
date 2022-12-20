@@ -27,9 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
 
-
-    private val popularMoviesViewModel : PopularMoviesViewModel by viewModels()
-    private val popularSeriesViewModel : PopularSeriesViewModel by viewModels()
+    private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
+    private val popularSeriesViewModel: PopularSeriesViewModel by viewModels()
     private val topRatedMoviesViewModel: TopRatedMoviesViewModel by viewModels()
     private val topRatedSeriesViewModel: TopRatedSeriesViewModel by viewModels()
     private val multiSearchViewModel: MultiSearchViewModel by viewModels()

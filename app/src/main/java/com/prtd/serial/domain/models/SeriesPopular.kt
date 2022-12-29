@@ -14,6 +14,6 @@ data class SeriesPopular(
         val name: String,
         val popularity: Double,
         val posterPath: String?,
-        val voteAverage: Double,
-        )
+        val voteAverage: Float,
+    )
 }

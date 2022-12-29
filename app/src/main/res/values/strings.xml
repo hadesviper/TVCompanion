@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Search_hint"><![CDATA[Search Movies & TV-Series]]></string>
+    <string name="http_exception_error_msg">"An unexpected error has occurred"</string>
+    <string name="io_exception_error_msg">"Couldn't Reach server check your internet connection!"</string>
+
 </resources>

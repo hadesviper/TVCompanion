@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
     </data>
 
 
@@ -13,18 +12,20 @@
         android:orientation="vertical"
         android:background="@color/background"
         android:gravity="center_horizontal|top"
-        tools:context=".presentation.screen_search.movie_results.MovieResultFragment">
+        tools:context=".presentation.screen_search.movie_results_fragment.MovieResultFragment">
 
         <ProgressBar
             android:id="@+id/barLoadingMovies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:indeterminate="true"
             android:indeterminateTint="@color/red" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerMoviesResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:minHeight="210dp"
             tools:listitem="@layout/recycler_main" />
 

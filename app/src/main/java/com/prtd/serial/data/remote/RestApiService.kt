@@ -14,36 +14,36 @@ interface RestApiService {
     suspend fun searchMovies(@Query("query") query:String,@Query("page") page:Int) : MoviesResultDTO
 
     @GET("search/tv?api_key=$Api_Key&language=en-US")
-    suspend fun searchSeries(@Query("query") query:String,@Query("page") page:Int) : SeriesResultDTO
+    suspend fun searchSeries(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): SeriesResultDTO
 
     @GET("movie/{id}?api_key=$Api_Key&language=en-US&append_to_response=videos")
-    suspend fun getMovie(@Path("id") id:Int) : MovieDTO
+    suspend fun getMovie(@Path("id") id: Int): MovieDTO
 
-    @GET("tv/{id}?api_key=$Api_Key&language=en-US&append_to_response=videos")
-    suspend fun getSeries(@Path("id") id:Int) : SeriesDTO
+    @GET("tv/{id}?api_key=$Api_Key&language=en-US&&append_to_response=videos")
+    suspend fun getSeries(@Path("id") id: Int): SeriesDTO
 
-    @GET("movie/popular?api_key=$Api_Key&language=en-US&page=1")
-    suspend fun getPopularMovies() : MoviesPopularDTO
+    @GET("movie/popular?api_key=$Api_Key&language=en-US")
+    suspend fun getPopularMovies(@Query("page") page: Int): MoviesPopularDTO
 
     @GET("tv/popular?api_key=$Api_Key&language=en-US")
-    suspend fun getPopularSeries(@Query("page") page:Int) : SeriesPopularDTO
+    suspend fun getPopularSeries(@Query("page") page: Int): SeriesPopularDTO
 
-    @GET("movie/top_rated?api_key=$Api_Key&language=en-US&page=1")
-    suspend fun getTopRatedMovies() : MoviesTopRatedDTO
+    @GET("movie/top_rated?api_key=$Api_Key&language=en-US")
+    suspend fun getTopRatedMovies(@Query("page") page: Int): MoviesTopRatedDTO
 
-    @GET("tv/top_rated?api_key=$Api_Key&language=en-US&page=1")
-    suspend fun getTopRatedSeries() : SeriesTopRatedDTO
-
-
-    @GET("tv/{id}/similar?api_key=$Api_Key&language=en-US&page=1")
-    suspend fun getSimilarSeries(@Path("id") id:Int) : SeriesResultDTO
+    @GET("tv/top_rated?api_key=$Api_Key&language=en-US")
+    suspend fun getTopRatedSeries(@Query("page") page: Int): SeriesTopRatedDTO
 
 
-    @GET("movie/{id}/similar?api_key=$Api_Key&language=en-US&page=1")
-    suspend fun getSimilarMovies(@Path("id") id:Int) : MoviesResultDTO
+    @GET("tv/{id}/similar?api_key=$Api_Key&language=en-US")
+    suspend fun getSimilarSeries(@Path("id") id: Int, @Query("page") page: Int): SeriesResultDTO
 
 
-
+    @GET("movie/{id}/similar?api_key=$Api_Key&language=en-US")
+    suspend fun getSimilarMovies(@Path("id") id: Int, @Query("page") page: Int): MoviesResultDTO
 
 
 }

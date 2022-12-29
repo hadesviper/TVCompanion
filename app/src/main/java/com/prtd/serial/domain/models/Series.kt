@@ -1,10 +1,14 @@
 package com.prtd.serial.domain.models
 
+import com.prtd.serial.data.local.entities.EntitySeries
+
 
 data class Series(
-    val backdrop_path : String?,
+    val id: Int,
+    val posterPath: String?,
+    val backdrop_path: String?,
     val firstAirDate: String?,
-    val genres: String,
+    val genres: String?,
     val lastAirDate: String?,
     val name: String,
     val numberOfEpisodes: Int,
@@ -14,11 +18,10 @@ data class Series(
     val seasons: List<Season>,
     val status: String,
     val tagline: String,
-    val videoID: String?="",
+    val videoID: String?,
     val vote: Float,
 
-) {
-
+    ) {
     data class Season(
         val airDate: String?,
         val episodeCount: Int,
@@ -28,4 +31,14 @@ data class Series(
         val posterPath: String?,
         val seasonNumber: Int
     )
+
+    fun toEntitySeries(): EntitySeries {
+        return EntitySeries(
+            id = this.id,
+            posterPath = this.posterPath,
+            year = this.firstAirDate,
+            name = this.name,
+            vote = this.vote
+        )
+    }
 }

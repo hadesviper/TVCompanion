@@ -8,10 +8,10 @@ data class SeriesResult(
     val totalResults: Int
 ) {
     data class Result(
-        val firstAirDate: String,
+        val firstAirDate: String?,
         val id: Int,
         val name: String,
-        val popularity: Double,
+        val popularity: Double?,
         val posterPath: String?,
         val voteAverage: Float,
     )

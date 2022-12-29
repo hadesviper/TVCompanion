@@ -33,17 +33,25 @@
                 android:onTextChanged="@{(text,_1,_2,_3)-> multiSearchViewModel.getAutoComplete(text.toString())}"/>
 
             <ImageButton
-                android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/transparent"
                 android:onClick="@{()->HelperMethods.INSTANCE.startSearchActivity(context,autoComplete)}"
                 android:src="@drawable/ic_baseline_arrow_circle_right_24"
                 />
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="wrap_content"
+                android:padding="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/transparent"
+                android:src="@drawable/ic_baseline_more_vert_24"
+                />
+
 
         </LinearLayout>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -51,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@color/background">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,19 +68,25 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:paddingStart="10dp"
-                     />
+                    android:shadowColor="@color/red"
+                    android:shadowRadius="20"/>
+
                 <ProgressBar
                     android:id="@+id/barPopularSeries"
                     android:layout_width="match_parent"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:indeterminate="true"
                     android:layout_height="wrap_content"
                     android:indeterminateTint="@color/red" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerPopularSeries"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="210dp"
                     app:spanCount="1"
-                    tools:listitem="@layout/recycler_main"/>
+                    tools:listitem="@layout/recycler_main" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,12 +95,16 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:paddingStart="10dp"
-                    />
+                    android:shadowColor="@color/red"
+                    android:shadowRadius="20"/>
                 <ProgressBar
                     android:id="@+id/barPopularMovies"
                     android:layout_width="match_parent"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:indeterminate="true"
                     android:layout_height="wrap_content"
                     android:indeterminateTint="@color/red" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerPopularMovies"
                     android:layout_width="match_parent"
@@ -102,10 +121,13 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:paddingStart="10dp"
-                    />
+                    android:shadowColor="@color/red"
+                    android:shadowRadius="20"/>
                 <ProgressBar
                     android:id="@+id/barTopRatedSeries"
                     android:layout_width="match_parent"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:indeterminate="true"
                     android:layout_height="wrap_content"
                     android:indeterminateTint="@color/red" />
                 <androidx.recyclerview.widget.RecyclerView
@@ -123,10 +145,13 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:paddingStart="10dp"
-                    />
+                    android:shadowColor="@color/red"
+                    android:shadowRadius="20"/>
                 <ProgressBar
                     android:id="@+id/barTopRatedMovies"
                     android:layout_width="match_parent"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:indeterminate="true"
                     android:layout_height="wrap_content"
                     android:indeterminateTint="@color/red" />
                 <androidx.recyclerview.widget.RecyclerView
@@ -139,7 +164,7 @@
 
 
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
     <data>
@@ -152,7 +177,7 @@
 
         <variable
             name="multiSearchViewModel"
-            type="com.prtd.serial.presentation.screen_search.MultiSearchViewModel" />
+            type="com.prtd.serial.presentation.screen_main.view_models.MultiSearchViewModel" />
     </data>
 
 

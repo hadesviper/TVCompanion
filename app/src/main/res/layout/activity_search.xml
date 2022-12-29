@@ -2,21 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="multiSearch"
-            type="com.prtd.serial.presentation.screen_search.MultiSearchViewModel" />
-        <variable
-            name="series"
-            type="com.prtd.serial.domain.models.Series" />
-        <variable
-            name="openYT"
-            type="com.prtd.serial.common.HelperMethods" />
-    </data>
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,7 +12,7 @@
         <SearchView
             android:inputType="text"
             android:maxLines="1"
-            android:id="@+id/etdSearch"
+            android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:queryHint="@string/Search_hint"
@@ -41,13 +26,17 @@
             app:tabIndicatorColor="@color/red"
             app:tabSelectedTextColor="@color/red"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
+
+    <data>
+
+    </data>
 
 </layout>

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prtd.serial.common.Resources
 import com.prtd.serial.domain.models.Series
-import com.prtd.serial.domain.use_cases.ShowSeriesUseCase
+import com.prtd.serial.domain.use_cases.use_cases_remote.ShowSeriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -29,6 +29,7 @@ class SeriesViewModel @Inject constructor(
     fun getError():LiveData <String>{
         return error
     }
+
     fun getSeries(id :Int){
         showSeriesUseCase.invoke(id).onEach {
             when (it) {
@@ -37,11 +38,11 @@ class SeriesViewModel @Inject constructor(
                 }
                 is Resources.Success -> {
                     loading.value = false
-                    result.value = it.data
+                    result.value = it.data!!
                 }
                 is Resources.Error -> {
                     loading.value = false
-                    error.value = it.message
+                    error.value = it.message!!
                 }
 
             }

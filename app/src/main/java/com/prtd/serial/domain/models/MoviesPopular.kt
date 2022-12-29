@@ -9,11 +9,10 @@ data class MoviesPopular(
 ) {
     data class Result(
         val id: Int,
-
         val posterPath: String?,
         val releaseDate: String,
         val title: String,
-        val voteAverage: Double,
+        val voteAverage: Float,
         val popularity: Double,
-        )
+    )
 }

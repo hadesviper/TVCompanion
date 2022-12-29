@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minWidth="144dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp"
@@ -23,6 +24,7 @@
         tools:src="@drawable/sample"
         android:id="@+id/imgPoster"
         android:layout_width="134dp"
+        android:adjustViewBounds="true"
         android:layout_height="210dp"/>
     <TextView
         android:id="@+id/txtName"
@@ -33,7 +35,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="14sp"
-        android:text="name:"/>
+        tools:text="name:"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +44,7 @@
             android:id="@+id/txtRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rate:"
+            tools:text="Rate:"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="14sp"
@@ -56,7 +58,7 @@
             android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date:"
+            tools:text="Date:"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:drawableLeftCompat="@drawable/ic_baseline_calendar_month_24"

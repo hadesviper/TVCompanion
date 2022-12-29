@@ -1,7 +1,6 @@
 package com.prtd.serial.data.remote.dto
 
 
-import android.util.Log
 import com.google.gson.annotations.SerializedName
 import com.prtd.serial.common.Constants
 import com.prtd.serial.domain.models.MultiResult
@@ -56,35 +55,31 @@ data class MultiResultsDTO(
         @SerializedName("vote_count")
         val voteCount: Int?
     )
-}
-fun MultiResultsDTO.getMultiResult(): MultiResult {
+    fun toMultiResult(): MultiResult {
 
-    Log.i("results", "getMultiResult: $results")
+        val filtered = results.filter { result ->
+            result.mediaType == Constants.Type_Movie || result.mediaType == Constants.Type_Series
+        }
+        return MultiResult(
+            page = page,
+            results = filtered.map {
+                MultiResult.Result(
+                    firstAirDate = it.firstAirDate?.split("-")?.get(0),
+                    id = it.id,
+                    posterPath = it.posterPath,
+                    releaseDate = it.releaseDate?.split("-")?.get(0),
+                    type = it.mediaType,
+                    name = if (it.name.isNullOrBlank()) it.title else it.name,
+                    year = if (it.firstAirDate.isNullOrBlank())
+                        it.releaseDate?.split("-")?.get(0)
+                    else
+                        it.firstAirDate.split("-")[0],
+                    vote = it.voteAverage
+                )
+            }, totalPages = totalPages, totalResults = totalResults
 
-    val filtered=results.filter {
-            result ->
-        result.mediaType== Constants.Type_Movie || result.mediaType==Constants.Type_Series
+        )
     }
-    Log.i("filtered", "getMultiResult: $filtered")
-
-    return MultiResult(
-        page = page,
-        results = filtered.map {
-            MultiResult.Result(
-                firstAirDate = it.firstAirDate?.split("-")?.get(0),
-                id = it.id,
-                posterPath = it.posterPath,
-                releaseDate = it.releaseDate?.split("-")?.get(0),
-                type = it.mediaType,
-                name = if (it.name.isNullOrBlank()) it.title else it.name,
-                year = if (it.firstAirDate.isNullOrBlank())
-                    it.releaseDate?.split("-")?.get(0)
-                else
-                    it.firstAirDate.split("-")[0],
-                vote = it.voteAverage
-            )
-        }, totalPages = totalPages, totalResults = totalResults
-
-    )
 }
+
 

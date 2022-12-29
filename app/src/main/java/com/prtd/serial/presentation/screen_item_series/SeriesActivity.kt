@@ -11,46 +11,80 @@ import com.prtd.serial.R
 import com.prtd.serial.common.Constants
 import com.prtd.serial.common.HelperMethods
 import com.prtd.serial.common.HelperMethods.loadImageIntoView
+import com.prtd.serial.common.HelperMethods.showErrorDialog
 import com.prtd.serial.databinding.ActivitySeriesBinding
 import com.prtd.serial.presentation.screen_item_series.adapters.SeasonsAdapter
 import com.prtd.serial.presentation.screen_item_series.adapters.SimilarSeriesAdapter
 import com.prtd.serial.presentation.screen_item_series.view_models.SeriesViewModel
 import com.prtd.serial.presentation.screen_item_series.view_models.SimilarSeriesViewModel
+import com.prtd.serial.presentation.screen_saved.series_saved_fragment.SeriesSavedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SeriesActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySeriesBinding
+    private val binding: ActivitySeriesBinding by lazy {
+        DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_series
+        )
+    }
     private val seriesViewModel: SeriesViewModel by viewModels()
+    private val seriesSavedViewModel: SeriesSavedViewModel by viewModels()
     private val similarSeriesViewModel: SimilarSeriesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_series)
-        binding.openYT = HelperMethods
-        val seriesName:String? = intent.getStringExtra(Constants.Media_Name)
-        val seriesID:Int = intent.getIntExtra(Constants.Media_ID,119051)
+        val seriesID: Int = intent.getIntExtra(Constants.Media_ID, 119051)
 
-        supportActionBar?.title = seriesName
+        supportActionBar?.title = intent.getStringExtra(Constants.Media_Name)
+        binding.run {
+            openYT = HelperMethods
+            watchLater = seriesSavedViewModel
+            seriesSavedViewModel.saveButtonSet(btnSave, seriesID, this@SeriesActivity)
+            recyclerSimilar.layoutManager =
+                LinearLayoutManager(this@SeriesActivity, RecyclerView.HORIZONTAL, false)
+            recyclerSeasons.layoutManager =
+                LinearLayoutManager(this@SeriesActivity, RecyclerView.HORIZONTAL, false)
+        }
 
-        seriesViewModel.getSeries(seriesID).run {
-            seriesViewModel.getResult().observeForever{
-                loadImageIntoView(this@SeriesActivity, "${Constants.Back_Img_Url}${it.backdrop_path}",binding.imgBG)
+
+        seriesViewModel.run {
+            getSeries(seriesID)
+            getResult().observe(this@SeriesActivity) {
+                loadImageIntoView(
+                    this@SeriesActivity,
+                    "${Constants.Back_Img_Url}${it.backdrop_path}",
+                    binding.imgBG
+                )
                 binding.series = it
-                binding.recyclerSeasons.layoutManager = LinearLayoutManager(this@SeriesActivity, RecyclerView.HORIZONTAL,false)
                 binding.recyclerSeasons.adapter = SeasonsAdapter(it)
+            }
+            getError().observe(this@SeriesActivity) {
+                showErrorDialog(this@SeriesActivity, it) {
+                    getSeries(seriesID)
+                }
             }
         }
 
-        similarSeriesViewModel.getSimilarSeries(seriesID).run {
-            similarSeriesViewModel.getIsLoading().observeForever{
-                if (!it){
-                    binding.barSimilar.visibility = View.GONE
-                }
+        similarSeriesViewModel.run {
+            val adapter = SimilarSeriesAdapter()
+
+            binding.recyclerSimilar.adapter = adapter
+
+            getSimilarSeries(seriesID, getCurrentPage())
+
+            registerRecyclerView(binding.recyclerSimilar)
+
+            getIsLoading().observe(this@SeriesActivity) {
+                binding.barSimilar.visibility = if (it) View.VISIBLE else View.INVISIBLE
             }
-            similarSeriesViewModel.getResult().observeForever{
-                binding.recyclerSimilar.layoutManager = LinearLayoutManager(this@SeriesActivity, RecyclerView.HORIZONTAL,false)
-                binding.recyclerSimilar.adapter = SimilarSeriesAdapter(it)
+            getResult().observe(this@SeriesActivity) {
+                adapter.addItems(it.results as ArrayList)
+            }
+            getError().observe(this@SeriesActivity) {
+                showErrorDialog(this@SeriesActivity, it) {
+                    getSimilarSeries(seriesID, getCurrentPage())
+                }
             }
         }
     }

@@ -31,26 +31,27 @@ class RestApiImpl @Inject constructor(
         return restApiService.getSeries(id)
     }
 
-    override suspend fun getPopularMovies(): MoviesPopularDTO {
-        return restApiService.getPopularMovies()
+    override suspend fun getPopularMovies(page: Int): MoviesPopularDTO {
+        return restApiService.getPopularMovies(page)
     }
 
     override suspend fun getPopularSeries(page: Int): SeriesPopularDTO {
         return restApiService.getPopularSeries(page)
     }
 
-    override suspend fun getTopRatedMovies(): MoviesTopRatedDTO {
-        return restApiService.getTopRatedMovies()
+    override suspend fun getTopRatedMovies(page: Int): MoviesTopRatedDTO {
+        return restApiService.getTopRatedMovies(page)
     }
 
-    override suspend fun getTopRatedSeries(): SeriesTopRatedDTO {
-        return restApiService.getTopRatedSeries()
+    override suspend fun getTopRatedSeries(page: Int): SeriesTopRatedDTO {
+        return restApiService.getTopRatedSeries(page)
     }
 
-    override suspend fun getSimilarSeries(id: Int): SeriesResultDTO {
-        return restApiService.getSimilarSeries(id)
+    override suspend fun getSimilarSeries(id: Int, page: Int): SeriesResultDTO {
+        return restApiService.getSimilarSeries(id, page)
     }
 
-    override suspend fun getSimilarMovies(id: Int): MoviesResultDTO {
-        return restApiService.getSimilarMovies(id)    }
+    override suspend fun getSimilarMovies(id: Int, page: Int): MoviesResultDTO {
+        return restApiService.getSimilarMovies(id, page)
+    }
 }

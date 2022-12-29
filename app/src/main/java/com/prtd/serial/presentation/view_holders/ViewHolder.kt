@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.prtd.serial.R
 
 class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
     val txtName: TextView = itemView.findViewById(R.id.txtName)
     val txtRate: TextView = itemView.findViewById(R.id.txtRate)
     val txtDate: TextView = itemView.findViewById(R.id.txtDate)

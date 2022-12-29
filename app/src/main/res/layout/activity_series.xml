@@ -10,9 +10,12 @@
         <variable
             name="openYT"
             type="com.prtd.serial.common.HelperMethods" />
+        <variable
+            name="watchLater"
+            type="com.prtd.serial.presentation.screen_saved.series_saved_fragment.SeriesSavedViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
@@ -21,7 +24,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -38,12 +40,22 @@
                     android:layout_height="match_parent"
                     tools:src="@drawable/sample_back"
                     android:scaleType="fitXY" />
+                <ImageButton
+                    android:id="@+id/btnSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->watchLater.saveButtonClick(btnSave,series,context)}"
+                    android:layout_gravity="bottom|end"
+                    android:background="@color/red"
+                    android:src="@drawable/ic_baseline_bookmark_border_24"
+                    />
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtNameSeries"
+                android:shadowColor="@color/red"
+                android:shadowRadius="20"
                 tools:text="SeriesName"
                 android:text="@{series.name}"
                 android:textStyle="bold"
@@ -54,7 +66,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtTagLineSeries"
                 tools:text="TagLine"
                 android:textStyle="bold"
                 android:text="@{series.tagline}"
@@ -65,7 +76,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtGenre"
                 tools:text="Genre"
                 android:text="@{series.genres}"
                 android:textStyle="bold"
@@ -74,7 +84,6 @@
                 android:textColor="@color/grey_white" />
 
             <TextView
-                android:id="@+id/txtRateSeries"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -100,7 +109,6 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/txtDateSeries"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{series.firstAirDate+ ` ~ `+series.lastAirDate}"
@@ -112,7 +120,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/txtDurationSeries"
                         tools:text="Duration"
                         android:text="@{ `Season(s): `+series.numberOfSeasons+`  Episode(s): `+series.numberOfEpisodes }"
                         android:textStyle="bold"
@@ -131,13 +138,14 @@
                     app:drawableTint="@color/grey_white"
                     app:drawableLeftCompat="@drawable/ic_baseline_ondemand_video_24"
                     android:drawablePadding="5dp"
+                    android:shadowColor="@color/red"
+                    android:shadowRadius="20"
                     android:backgroundTint="@color/items_background" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtOverviewSeries"
                 tools:text="overview"
                 android:text="@{series.overview}"
                 android:textStyle="bold"
@@ -151,7 +159,8 @@
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
-
+                android:shadowColor="@color/red"
+                android:shadowRadius="20"
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSeasons"
@@ -166,13 +175,16 @@
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
-
+                android:shadowColor="@color/red"
+                android:shadowRadius="20"
                 />
             <ProgressBar
                 android:id="@+id/barSimilar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:indeterminateTint="@color/red" />
+                android:indeterminateTint="@color/red"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:indeterminate="true"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSimilar"
                 android:layout_width="match_parent"
@@ -180,6 +192,6 @@
                 app:spanCount="1"
                 tools:listitem="@layout/recycler_main"/>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

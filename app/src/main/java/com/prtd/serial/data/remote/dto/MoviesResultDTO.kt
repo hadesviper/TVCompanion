@@ -35,32 +35,34 @@ data class MoviesResultDTO (
         @SerializedName("poster_path")
         val posterPath: String?,
         @SerializedName("release_date")
-        val releaseDate: String,
+        val releaseDate: String?,
         @SerializedName("title")
         val title: String,
         @SerializedName("video")
         val video: Boolean,
         @SerializedName("vote_average")
-        val voteAverage: Double,
+        val voteAverage: Float,
         @SerializedName("vote_count")
-        val voteCount: Int
+        val voteCount: Double
     )
+
+    fun toMovieResults(): MoviesResult {
+        return MoviesResult(
+            page = page,
+            results = results.map {
+                MoviesResult.Result(
+                    id = it.id,
+                    posterPath = it.posterPath,
+                    releaseDate = it.releaseDate?.split("-")?.get(0) ?: "",
+                    title = it.title,
+                    voteAverage = roundToDecimalPlaces(it.voteAverage, 1),
+                    popularity = it.popularity,
+
+                    )
+            },
+            totalPages = totalPages,
+            totalResults = totalResults
+        )
+    }
 }
 
-fun MoviesResultDTO.getMovieResults(): MoviesResult{
-    return MoviesResult(
-        page = page,
-        results = results.map {
-            MoviesResult.Result(
-                id = it.id,
-                posterPath = it.posterPath,
-                releaseDate = it.releaseDate.split("-")[0],
-                title = it.title,
-                voteAverage = roundToDecimalPlaces(it.voteAverage.toFloat(),1),
-                popularity = it.popularity,
-
-            ) },
-        totalPages = totalPages,
-        totalResults = totalResults
-    )
-}

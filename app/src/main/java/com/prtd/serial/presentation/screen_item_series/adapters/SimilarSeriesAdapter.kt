@@ -10,9 +10,21 @@ import com.prtd.serial.common.HelperMethods
 import com.prtd.serial.domain.models.SeriesResult
 import com.prtd.serial.presentation.view_holders.ViewHolder
 
-class SimilarSeriesAdapter(private val items:SeriesResult): RecyclerView.Adapter<ViewHolder>() {
+class SimilarSeriesAdapter : RecyclerView.Adapter<ViewHolder>() {
+
+    private var items: ArrayList<SeriesResult.Result>? = null
+
+    fun addItems(newItems: ArrayList<SeriesResult.Result>) {
+        if (items == null) {
+            items = ArrayList(newItems)
+        } else {
+            items!!.addAll(newItems)
+        }
+        notifyItemInserted(items!!.size - newItems.size)
+    }
+
     override fun getItemCount(): Int {
-        return items.results.size
+        return items?.size ?: 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,20 +34,20 @@ class SimilarSeriesAdapter(private val items:SeriesResult): RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtName.text = items.results[position].name
-        holder.txtRate.text = items.results[position].voteAverage.toString()
-        holder.txtDate.text = items.results[position].firstAirDate
-        holder.viewItem.setOnClickListener{
+        holder.txtName.text = items!![position].name
+        holder.txtRate.text = items!![position].voteAverage.toString()
+        holder.txtDate.text = items!![position].firstAirDate
+        holder.viewItem.setOnClickListener {
             HelperMethods.startMediaActivity(
                 context = holder.itemView.context,
-                mediaId = items.results[position].id,
-                mediaName = items.results[position].name,
+                mediaId = items!![position].id,
+                mediaName = items!![position].name,
                 type = Constants.Type_Series,
             )
         }
         HelperMethods.loadImageIntoView(
             holder.itemView.context,
-            "$Img_Url${items.results[position].posterPath}",
+            "$Img_Url${items!![position].posterPath}",
             holder.imgPoster
         )
     }

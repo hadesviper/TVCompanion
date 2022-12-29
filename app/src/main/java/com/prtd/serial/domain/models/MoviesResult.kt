@@ -1,16 +1,10 @@
 package com.prtd.serial.domain.models
 
 
-
-
 data class MoviesResult(
-
     val page: Int,
-
     val results: List<Result>,
-
     val totalPages: Int,
-
     val totalResults: Int
 ) {
     data class Result(
@@ -19,6 +13,6 @@ data class MoviesResult(
         val releaseDate: String,
         val title: String,
         val voteAverage: Float,
-        val popularity: Double,
+        val popularity: Double?,
     )
 }

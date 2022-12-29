@@ -39,7 +39,7 @@ data class MovieDTO(
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("revenue")
-    val revenue: Int,
+    val revenue: Double,
     @SerializedName("runtime")
     val runtime: Int,
     @SerializedName("spoken_languages")
@@ -57,7 +57,7 @@ data class MovieDTO(
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Double
 ) {
     data class Genre(
         @SerializedName("id")
@@ -99,7 +99,7 @@ data class MovieDTO(
     ) {
         data class Result(
             @SerializedName("id")
-            val id: String?,
+            val id: String,
             @SerializedName("iso_3166_1")
             val iso31661: String,
             @SerializedName("iso_639_1")
@@ -107,7 +107,7 @@ data class MovieDTO(
             @SerializedName("key")
             val key: String,
             @SerializedName("name")
-            val name: String?,
+            val name: String,
             @SerializedName("official")
             val official: Boolean,
             @SerializedName("published_at")
@@ -120,19 +120,22 @@ data class MovieDTO(
             val type: String
         )
     }
+
+    fun toMovie(): Movie {
+        return Movie(
+            id = id,
+            posterPath = posterPath,
+            backdrop_path = backdropPath,
+            genre = genres.joinToString { it.name },
+            overview = overview,
+            popularity = popularity,
+            title = title,
+            tagline = tagline,
+            videoID = if (videos?.results?.isNotEmpty() == true) videos.results[0]?.key else "",
+            year = releaseDate.split("-")[0],
+            vote = roundToDecimalPlaces(voteAverage.toFloat(), 1),
+            duration = runtime
+        )
+    }
 }
 
-fun MovieDTO.getMovie():Movie{
-    return Movie(
-        backdrop_path = backdropPath,
-        genre = genres.joinToString { it.name },
-        overview = overview,
-        popularity = popularity,
-        title = title,
-        tagline = tagline,
-        videoID = if (videos?.results!!.isNotEmpty()) videos.results[0]?.key else "",
-        year = releaseDate.split("-")[0],
-        vote = roundToDecimalPlaces(voteAverage.toFloat(),1),
-        duration = runtime
-    )
-}

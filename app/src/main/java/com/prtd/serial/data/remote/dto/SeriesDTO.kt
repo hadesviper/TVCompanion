@@ -73,6 +73,7 @@ data class SeriesDTO(
     @SerializedName("vote_count")
     val voteCount: Int
 ) {
+
     data class CreatedBy(
         @SerializedName("credit_id")
         val creditId: String,
@@ -202,33 +203,36 @@ data class SeriesDTO(
             val type: String
         )
     }
+
+    fun toSeries(): Series {
+        return Series(
+            id = id,
+            posterPath = posterPath,
+            backdrop_path = backdropPath,
+            firstAirDate = firstAirDate?.split("-")?.get(0),
+            genres = genres.joinToString { it.name },
+            lastAirDate = lastAirDate?.split("-")?.get(0),
+            name = name,
+            numberOfEpisodes = numberOfEpisodes,
+            numberOfSeasons = numberOfSeasons,
+            overview = overview,
+            popularity = popularity,
+            seasons = seasons.map {
+                Series.Season(
+                    airDate = it.airDate?.split("-")?.get(0),
+                    episodeCount = it.episodeCount,
+                    id = it.id,
+                    name = it.name,
+                    overview = it.overview,
+                    posterPath = it.posterPath,
+                    seasonNumber = it.seasonNumber
+                )
+            },
+            status = status,
+            tagline = tagline,
+            videoID = if (videos?.results?.isNotEmpty() == true) videos.results[0]?.key else "",
+            vote = roundToDecimalPlaces(voteAverage.toFloat(), 1)
+        )
+    }
 }
 
-fun SeriesDTO.getSeries():Series{
-    return Series(
-        backdrop_path = backdropPath,
-        firstAirDate = firstAirDate?.split("-")!![0],
-        genres = genres.joinToString { it.name },
-        lastAirDate = lastAirDate?.split("-")?.get(0),
-        name = name,
-        numberOfEpisodes = numberOfEpisodes,
-        numberOfSeasons = numberOfSeasons,
-        overview = overview,
-        popularity = popularity,
-        seasons = seasons.map {
-                              Series.Season(
-                                  airDate = it.airDate?.split("-")?.get(0),
-                                  episodeCount = it.episodeCount,
-                                  id = it.id,
-                                  name = it.name,
-                                  overview = it.overview,
-                                  posterPath = it.posterPath,
-                                  seasonNumber = it.seasonNumber
-                              )
-        },
-        status = status,
-        tagline = tagline,
-        videoID = if (videos?.results!!.isNotEmpty()) videos.results[0]?.key else "",
-        vote = roundToDecimalPlaces(voteAverage.toFloat(),1)
-    )
-}

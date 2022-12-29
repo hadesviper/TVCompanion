@@ -7,12 +7,12 @@ data class MoviesTopRated(
     val totalPages: Int,
     val totalResults: Int
 ) {
-data class Result(
-    val id: Int,
-    val posterPath: String?,
-    val releaseDate: String,
-    val title: String,
-    val voteAverage: Double,
-    val popularity: Double,
+    data class Result(
+        val id: Int,
+        val posterPath: String?,
+        val releaseDate: String,
+        val title: String,
+        val voteAverage: Float,
+        val popularity: Double,
     )
 }

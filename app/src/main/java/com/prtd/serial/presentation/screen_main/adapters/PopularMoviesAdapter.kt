@@ -11,10 +11,22 @@ import com.prtd.serial.common.HelperMethods.startMediaActivity
 import com.prtd.serial.domain.models.MoviesPopular
 import com.prtd.serial.presentation.view_holders.ViewHolder
 
-class PopularMoviesAdapter(private val items:MoviesPopular): RecyclerView.Adapter<ViewHolder>() {
+class PopularMoviesAdapter : RecyclerView.Adapter<ViewHolder>() {
+
+    private var items: ArrayList<MoviesPopular.Result>? = null
+
+    fun addItems(newItems: ArrayList<MoviesPopular.Result>) {
+        if (items == null) {
+            items = ArrayList(newItems)
+        } else {
+            items!!.addAll(newItems)
+        }
+        notifyItemInserted(items!!.size - newItems.size)
+    }
+
     override fun getItemCount(): Int {
-        return items.results.size
-     }
+        return items?.size ?: 0
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,18 +35,22 @@ class PopularMoviesAdapter(private val items:MoviesPopular): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtName.text = items.results[position].title
-        holder.txtRate.text = items.results[position].voteAverage.toString()
-        holder.txtDate.text = items.results[position].releaseDate
-        holder.viewItem.setOnClickListener{
+        holder.txtName.text = items!![position].title
+        holder.txtRate.text = items!![position].voteAverage.toString()
+        holder.txtDate.text = items!![position].releaseDate
+        holder.viewItem.setOnClickListener {
             startMediaActivity(
                 context = holder.itemView.context,
-                mediaId = items.results[position].id,
-                mediaName = items.results[position].title,
+                mediaId = items!![position].id,
+                mediaName = items!![position].title,
                 type = Type_Movie,
             )
         }
-        loadImageIntoView(holder.itemView.context,"$Img_Url${items.results[position].posterPath}",holder.imgPoster)
+        loadImageIntoView(
+            holder.itemView.context,
+            "$Img_Url${items!![position].posterPath}",
+            holder.imgPoster
+        )
     }
 
 }

@@ -40,26 +40,27 @@ data class MoviesPopularDTO(
         @SerializedName("video")
         val video: Boolean,
         @SerializedName("vote_average")
-        val voteAverage: Double,
+        val voteAverage: Float,
         @SerializedName("vote_count")
-        val voteCount: Int
+        val voteCount: Double
     )
+
+    fun toMoviesPopular(): MoviesPopular {
+        return MoviesPopular(
+            page,
+            results.map {
+                MoviesPopular.Result(
+                    posterPath = it.posterPath,
+                    releaseDate = it.releaseDate.split("-")[0],
+                    title = it.title,
+                    voteAverage = it.voteAverage,
+                    popularity = it.popularity,
+                    id = it.id
+                )
+            },
+            totalPages,
+            totalResults
+        )
+    }
 }
 
-fun MoviesPopularDTO.getMoviesPopular(): MoviesPopular{
-    return MoviesPopular(
-        page,
-        results.map {
-            MoviesPopular.Result(
-                posterPath = it.posterPath,
-                releaseDate = it.releaseDate.split("-")[0],
-                title = it.title,
-                voteAverage = it.voteAverage,
-                popularity = it.popularity,
-                id = it.id
-            )
-        },
-        totalPages,
-        totalResults
-    )
-}

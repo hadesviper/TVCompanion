@@ -10,10 +10,22 @@ import com.prtd.serial.common.HelperMethods
 import com.prtd.serial.domain.models.MoviesTopRated
 import com.prtd.serial.presentation.view_holders.ViewHolder
 
-class TopRatedMoviesAdapter(private val items:MoviesTopRated): RecyclerView.Adapter<ViewHolder>() {
+class TopRatedMoviesAdapter : RecyclerView.Adapter<ViewHolder>() {
+
+    private var items: ArrayList<MoviesTopRated.Result>? = null
+
+    fun addItems(newItems: ArrayList<MoviesTopRated.Result>) {
+        if (items == null) {
+            items = ArrayList(newItems)
+        } else {
+            items!!.addAll(newItems)
+        }
+        notifyItemInserted(items!!.size - newItems.size)
+    }
+
     override fun getItemCount(): Int {
-        return items.results.size
-     }
+        return items?.size ?: 0
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -22,20 +34,20 @@ class TopRatedMoviesAdapter(private val items:MoviesTopRated): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtName.text = items.results[position].title
-        holder.txtRate.text = items.results[position].voteAverage.toString()
-        holder.txtDate.text = items.results[position].releaseDate
+        holder.txtName.text = items!![position].title
+        holder.txtRate.text = items!![position].voteAverage.toString()
+        holder.txtDate.text = items!![position].releaseDate
         holder.viewItem.setOnClickListener {
             HelperMethods.startMediaActivity(
                 context = holder.itemView.context,
-                mediaId = items.results[position].id,
-                mediaName = items.results[position].title,
+                mediaId = items!![position].id,
+                mediaName = items!![position].title,
                 type = Constants.Type_Movie,
             )
         }
         HelperMethods.loadImageIntoView(
             holder.itemView.context,
-            "$Img_Url${items.results[position].posterPath}",
+            "$Img_Url${items!![position].posterPath}",
             holder.imgPoster
         )
 

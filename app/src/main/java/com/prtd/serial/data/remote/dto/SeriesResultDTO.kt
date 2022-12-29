@@ -19,7 +19,7 @@ data class SeriesResultDTO(
         @SerializedName("backdrop_path")
         val backdropPath: String?,
         @SerializedName("first_air_date")
-        val firstAirDate: String,
+        val firstAirDate: String?,
         @SerializedName("genre_ids")
         val genreIds: List<Int>,
         @SerializedName("id")
@@ -35,28 +35,29 @@ data class SeriesResultDTO(
         @SerializedName("overview")
         val overview: String,
         @SerializedName("popularity")
-        val popularity: Double,
+        val popularity: Double?,
         @SerializedName("poster_path")
         val posterPath: String?,
         @SerializedName("vote_average")
-        val voteAverage: Double,
+        val voteAverage: Double?,
         @SerializedName("vote_count")
         val voteCount: Int
     )
-}
-fun SeriesResultDTO.getSeriesResult(): SeriesResult {
-    return SeriesResult(
-        page = page,
-        results = results.map {
-            SeriesResult.Result(
-                firstAirDate = it.firstAirDate.split("-")[0],
-                id = it.id,
-                name = it.name,
-                popularity = it.popularity,
-                posterPath = it.posterPath,
-                voteAverage = roundToDecimalPlaces(it.voteAverage.toFloat(), 1)
-            )
-        }, totalPages = totalPages, totalResults = totalResults
 
-    )
+    fun toSeriesResult(): SeriesResult {
+        return SeriesResult(
+            page = page,
+            results = results.map {
+                SeriesResult.Result(
+                    firstAirDate = it.firstAirDate?.split("-")?.get(0),
+                    id = it.id,
+                    name = it.name,
+                    popularity = it.popularity,
+                    posterPath = it.posterPath,
+                    voteAverage = roundToDecimalPlaces(it.voteAverage!!.toFloat(), 1)
+                )
+            }, totalPages = totalPages, totalResults = totalResults
+
+        )
+    }
 }

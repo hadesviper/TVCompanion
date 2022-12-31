@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.prtd.serial"
         minSdk 21
-        targetSdk 33
+        targetSdk 32
         versionCode 3
         versionName '1.3'
 

@@ -5,14 +5,14 @@ import com.prtd.serial.data.local.entities.EntityMovie
 
 data class Movie(
     val id: Int,
-    val posterPath: String?,
-    val backdrop_path: String?,
+    val posterPath: String,
+    val backdrop_path: String,
     val genre: String,
     val overview: String,
     val popularity: Double,
     val title: String,
     val tagline: String,
-    val videoID: String?,
+    val videoID: String,
     val year: String,
     val vote: Float,
     val duration: Int

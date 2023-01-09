@@ -9,7 +9,7 @@ data class MovieDTO(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String?,
+    val backdropPath: String = "",
     @SerializedName("belongs_to_collection")
     val belongsToCollection: Any,
     @SerializedName("budget")
@@ -17,107 +17,107 @@ data class MovieDTO(
     @SerializedName("genres")
     val genres: List<Genre>,
     @SerializedName("homepage")
-    val homepage: String,
+    val homepage: String = "",
     @SerializedName("id")
     val id: Int,
     @SerializedName("imdb_id")
-    val imdbId: String,
+    val imdbId: String = "",
     @SerializedName("original_language")
-    val originalLanguage: String,
+    val originalLanguage: String = "",
     @SerializedName("original_title")
-    val originalTitle: String,
+    val originalTitle: String = "",
     @SerializedName("overview")
-    val overview: String,
+    val overview: String = "",
     @SerializedName("popularity")
-    val popularity: Double,
+    val popularity: Double = 0.0,
     @SerializedName("poster_path")
-    val posterPath: String?,
+    val posterPath: String = "",
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompany>,
     @SerializedName("production_countries")
     val productionCountries: List<ProductionCountry>,
     @SerializedName("release_date")
-    val releaseDate: String,
+    val releaseDate: String = "",
     @SerializedName("revenue")
-    val revenue: Double,
+    val revenue: Double = 0.0,
     @SerializedName("runtime")
     val runtime: Int,
     @SerializedName("spoken_languages")
     val spokenLanguages: List<SpokenLanguage>,
     @SerializedName("status")
-    val status: String,
+    val status: String = "",
     @SerializedName("tagline")
-    val tagline: String,
+    val tagline: String = "",
     @SerializedName("title")
-    val title: String,
+    val title: String = "",
     @SerializedName("video")
     val video: Boolean,
     @SerializedName("videos")
-    val videos: Videos?,
+    val videos: Videos = Videos(),
     @SerializedName("vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double = 0.0,
     @SerializedName("vote_count")
-    val voteCount: Double
+    val voteCount: Double = 0.0
 ) {
     data class Genre(
         @SerializedName("id")
         val id: Int,
         @SerializedName("name")
-        val name: String
+        val name: String = ""
     )
 
     data class ProductionCompany(
         @SerializedName("id")
         val id: Int,
         @SerializedName("logo_path")
-        val logoPath: String,
+        val logoPath: String = "",
         @SerializedName("name")
-        val name: String,
+        val name: String = "",
         @SerializedName("origin_country")
-        val originCountry: String
+        val originCountry: String = ""
     )
 
     data class ProductionCountry(
         @SerializedName("iso_3166_1")
-        val iso31661: String,
+        val iso31661: String = "",
         @SerializedName("name")
-        val name: String
+        val name: String = ""
     )
 
     data class SpokenLanguage(
         @SerializedName("english_name")
-        val englishName: String,
+        val englishName: String = "",
         @SerializedName("iso_639_1")
-        val iso6391: String,
+        val iso6391: String = "",
         @SerializedName("name")
-        val name: String
+        val name: String = ""
     )
 
     data class Videos(
         @SerializedName("results")
-        val results: List<Result?>?
+        val results: List<Result> = emptyList()
     ) {
         data class Result(
             @SerializedName("id")
-            val id: String,
+            val id: String = "",
             @SerializedName("iso_3166_1")
-            val iso31661: String,
+            val iso31661: String = "",
             @SerializedName("iso_639_1")
-            val iso6391: String,
+            val iso6391: String = "",
             @SerializedName("key")
-            val key: String,
+            val key: String = "",
             @SerializedName("name")
-            val name: String,
+            val name: String = "",
             @SerializedName("official")
-            val official: Boolean,
+            val official: Boolean = false,
             @SerializedName("published_at")
-            val publishedAt: String,
+            val publishedAt: String = "",
             @SerializedName("site")
-            val site: String,
+            val site: String = "",
             @SerializedName("size")
-            val size: Int,
+            val size: Int = 0,
             @SerializedName("type")
-            val type: String
+            val type: String = ""
         )
     }
 
@@ -131,7 +131,7 @@ data class MovieDTO(
             popularity = popularity,
             title = title,
             tagline = tagline,
-            videoID = if (videos?.results?.isNotEmpty() == true) videos.results[0]?.key else "",
+            videoID = videos.results[0].key,
             year = releaseDate.split("-")[0],
             vote = roundToDecimalPlaces(voteAverage.toFloat(), 1),
             duration = runtime

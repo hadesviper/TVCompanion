@@ -13,7 +13,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.prtd.serial"
+        applicationId 'com.prtd.serial'
         minSdk 21
         targetSdk 33
         versionCode 3

@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 data class EntityMovie(
     @PrimaryKey
     val id: Int,
-    val posterPath: String?,
-    val year: String?,
-    val title: String,
-    val vote: Float,
+    val posterPath: String = "",
+    val year: String = "",
+    val title: String = "",
+    val vote: Float = 0f,
     val timeStamp: Long = System.currentTimeMillis()
 ) {
 }

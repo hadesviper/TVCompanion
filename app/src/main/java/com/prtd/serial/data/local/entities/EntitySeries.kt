@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 data class EntitySeries(
     @PrimaryKey
     val id: Int,
-    val posterPath: String?,
-    val name: String,
-    val year: String?,
-    val vote: Float,
+    val posterPath: String = "",
+    val name: String = "",
+    val year: String = "",
+    val vote: Float = 0f,
     val timeStamp: Long = System.currentTimeMillis()
 )
 

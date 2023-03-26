@@ -12,7 +12,7 @@ data class SeriesTopRated(
         val id: Int,
         val name: String,
         val popularity: Double,
-        val posterPath: String,
+        val posterPath: String?,
         val voteAverage: Float,
     )
 }

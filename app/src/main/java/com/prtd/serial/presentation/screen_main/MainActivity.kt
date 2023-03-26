@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             this,
             R.layout.activity_main
         )
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

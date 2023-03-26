@@ -15,7 +15,7 @@ data class SeriesDTO(
     @SerializedName("episode_run_time")
     val episodeRunTime: List<Int> = emptyList(),
     @SerializedName("first_air_date")
-    val firstAirDate: String = "",
+    val firstAirDate: String? = "",
     @SerializedName("genres")
     val genres: List<Genre> = emptyList(),
     @SerializedName("homepage")
@@ -27,7 +27,7 @@ data class SeriesDTO(
     @SerializedName("languages")
     val languages: List<String> = emptyList(),
     @SerializedName("last_air_date")
-    val lastAirDate: String = "",
+    val lastAirDate: String? = "",
     @SerializedName("last_episode_to_air")
     val lastEpisodeToAir: LastEpisodeToAir?,
     @SerializedName("name")
@@ -51,7 +51,7 @@ data class SeriesDTO(
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String = "",
+    val posterPath: String? = "",
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompany> = emptyList(),
     @SerializedName("production_countries")
@@ -152,7 +152,7 @@ data class SeriesDTO(
 
     data class Season(
         @SerializedName("air_date")
-        val airDate: String = "",
+        val airDate: String? = "",
         @SerializedName("episode_count")
         val episodeCount: Int,
         @SerializedName("id")
@@ -162,7 +162,7 @@ data class SeriesDTO(
         @SerializedName("overview")
         val overview: String = "",
         @SerializedName("poster_path")
-        val posterPath: String = "",
+        val posterPath: String? = "",
         @SerializedName("season_number")
         val seasonNumber: Int
     )
@@ -207,11 +207,11 @@ data class SeriesDTO(
     fun toSeries(): Series {
         return Series(
             id = id,
-            posterPath = posterPath,
+            posterPath = posterPath.toString(),
             backdrop_path = backdropPath,
-            firstAirDate = firstAirDate.split("-")[0],
+            firstAirDate = firstAirDate?.split("-")?.get(0),
             genres = genres.joinToString { it.name },
-            lastAirDate = lastAirDate.split("-")[0],
+            lastAirDate = lastAirDate?.split("-")?.get(0),
             name = name,
             numberOfEpisodes = numberOfEpisodes,
             numberOfSeasons = numberOfSeasons,
@@ -219,7 +219,7 @@ data class SeriesDTO(
             popularity = popularity,
             seasons = seasons.map {
                 Series.Season(
-                    airDate = it.airDate.split("-")[0],
+                    airDate = it.airDate?.split("-")?.get(0),
                     episodeCount = it.episodeCount,
                     id = it.id,
                     name = it.name,

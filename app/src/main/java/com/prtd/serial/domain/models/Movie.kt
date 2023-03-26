@@ -5,7 +5,7 @@ import com.prtd.serial.data.local.entities.EntityMovie
 
 data class Movie(
     val id: Int,
-    val posterPath: String,
+    val posterPath: String?,
     val backdrop_path: String,
     val genre: String,
     val overview: String,
@@ -20,7 +20,7 @@ data class Movie(
     fun toEntityMovie(): EntityMovie {
         return EntityMovie(
             id = this.id,
-            posterPath = this.posterPath,
+            posterPath = this.posterPath.toString(),
             year = this.year,
             title = this.title,
             vote = this.vote

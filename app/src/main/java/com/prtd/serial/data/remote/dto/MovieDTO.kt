@@ -31,7 +31,7 @@ data class MovieDTO(
     @SerializedName("popularity")
     val popularity: Double = 0.0,
     @SerializedName("poster_path")
-    val posterPath: String = "",
+    val posterPath: String? = "",
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompany>,
     @SerializedName("production_countries")
